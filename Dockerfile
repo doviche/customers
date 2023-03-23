@@ -6,9 +6,9 @@ ENV APP_NAME=customers-1.1
 
 RUN adduser  --disabled-password  --no-create-home --uid 10014 --ingroup choreo choreouser
 
-COPY target/${APP_NAME}.jar ${APP_NAME}.jar
-
 USER 10014
+
+COPY target/${APP_NAME}.jar /home/${APP_NAME}.jar
 
 EXPOSE 8081
 
