@@ -3,8 +3,7 @@ FROM centos:centos7
 
 ENV APP_NAME=customers-1.1
 
-RUN addgroup -g 10014 choreo && \
-    adduser  --disabled-password  --no-create-home --uid 10014 --ingroup choreo choreouser
+RUN adduser  --disabled-password  --no-create-home --uid 10014 --ingroup choreo choreouser
 
 
 USER 10014
