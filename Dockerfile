@@ -8,7 +8,7 @@ RUN adduser  --disabled-password  --no-create-home --uid 10014 --ingroup choreo 
 
 USER 10014
 
-COPY target/${APP_NAME}.jar /home/${APP_NAME}.jar
+COPY /var/lib/docker/tmp/target/${APP_NAME}.jar /home/${APP_NAME}.jar
 
 EXPOSE 8081
 
