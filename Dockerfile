@@ -3,21 +3,19 @@ FROM centos:centos7
 
 ENV APP_NAME=customers-1.1
 
-COPY ./${APP_NAME}.jar /usr/${APP_NAME}/
+RUN addgroup -g 10014 choreo && \
+    adduser  --disabled-password  --no-create-home --uid 10014 --ingroup choreo choreouser
 
-RUN chgrp -R 0 /usr/${APP_NAME}/ && \
-    chmod -R g=rwx /usr/${APP_NAME}/
-
-
-RUN useradd --create-home --uid 10014 -u 10014 appuser
 
 USER 10014
 
 EXPOSE 8080
 
-WORKDIR /APP
+VOLUME /tmp
 
-COPY /.app
+# Add Spring Boot app.jar to Container
+COPY --from=0 "/customers-1.1/target/customers-1.1.jar" app.jar
 
-RUN pip install --no-cache-dir -r requirements.txt
+# Fire up our Spring Boot app by default
+CMD [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar" ]
 
