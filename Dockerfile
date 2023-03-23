@@ -1,20 +1,17 @@
 FROM openjdk:17-oracle
-FROM centos:centos7
+
+ENV APP_NAME=customers-1.1
+
+COPY ./${APP_NAME}.jar /usr/${APP_NAME}/
 
 ENV APP_NAME=customers-1.1
 
 RUN adduser  --disabled-password  --no-create-home --uid 10014 --ingroup choreo choreouser
 
-
 USER 10014
 
-EXPOSE 8080
+EXPOSE 8081
 
-VOLUME /tmp
+WORKDIR /usr/${APP_NAME}/
 
-# Add Spring Boot app.jar to Container
-COPY --from=0 "/customers-1.1/target/customers-1.1.jar" app.jar
-
-# Fire up our Spring Boot app by default
-CMD [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar" ]
-
+CMD java -XX:+UnlockExperimentalVMOptions -XshowSettings:vm -Xmx2048m -Xms2048m -jar ${APP_NAME}.jar
