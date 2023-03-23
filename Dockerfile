@@ -3,8 +3,6 @@
 # 1. Building the App with Maven
 FROM maven:3.8.7-eclipse-temurin-19-alpine
 
-FROM eclipse-temurin:11-jdk as builder
-
 ARG MAVEN_VERSION=3.9.1
 ARG USER_HOME_DIR="/root"
 
@@ -23,10 +21,10 @@ FROM openjdk:17-oracle
 
 
 # https://security.alpinelinux.org/vuln/CVE-2021-46848
-RUN apk add --upgrade libtasn1-progs
+RUN apt update && apk upgrade libtasn1-progs
 
 # https://security.alpinelinux.org/vuln/CVE-2022-37434
-RUN apk update && apk upgrade zlib
+RUN apt update && apk upgrade zlib
 
 # Create a new user with UID 10014
 RUN addgroup -g 10014 choreo && \
