@@ -1,4 +1,5 @@
 FROM openjdk:17-oracle
+FROM centos:centos7
 
 ENV APP_NAME=customers-1.1
 
@@ -8,14 +9,15 @@ RUN chgrp -R 0 /usr/${APP_NAME}/ && \
     chmod -R g=rwx /usr/${APP_NAME}/
 
 
-# Create a new user with UID 10014
-RUN addgroup -g 10014 choreo && \
-    adduser  --disabled-password  --no-create-home --uid 10014 --ingroup choreo choreouser
+RUN useradd --create-home --uid 10014 -u 10014 appuser
 
-#MAINTAINER doviche
+USER appuser
 
-VOLUME /tmp
+EXPOSE 8080
 
-USER 10014
+WORKDIR /APP
 
+COPY /.app
+
+RUN pip install --no-cache-dir -r requirements.txt
 
