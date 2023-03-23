@@ -1,5 +1,4 @@
 FROM openjdk:17-oracle
-FROM centos:centos7
 
 ENV APP_NAME=customers-1.1
 
@@ -9,18 +8,19 @@ RUN chgrp -R 0 /usr/${APP_NAME}/ && \
     chmod -R g=rwx /usr/${APP_NAME}/
 
 
-RUN useradd --create-home --uid 10001 -u 100001 appuser
+# Create a new user with UID 10014
+RUN addgroup -g 10014 choreo && \
+    adduser  --disabled-password  --no-create-home --uid 10014 --ingroup choreo choreouser
 
-WORKDIR /APP
+#MAINTAINER doviche
 
-COPY /.app
+VOLUME /tmp
 
-RUN pip install --no-cache-dir -r requirements.txt
+USER 10014
 
-EXPOSE 8080
+# Add Spring Boot app.jar to Container
+COPY --from=0 "/target/customers-1.1.jar" app.jar
 
-ENV NAME World
+# Fire up our Spring Boot app by default
+CMD [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar" ]
 
-USER appuser
-
-CMD["python", "app.py]
