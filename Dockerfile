@@ -11,7 +11,7 @@ RUN chgrp -R 0 /usr/${APP_NAME}/ && \
 
 RUN useradd --create-home --uid 10014 -u 10014 appuser
 
-USER appuser
+USER 10014
 
 EXPOSE 8080
 
