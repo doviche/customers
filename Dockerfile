@@ -9,7 +9,7 @@ RUN chgrp -R 0 /usr/${APP_NAME}/ && \
     chmod -R g=rwx /usr/${APP_NAME}/
 
 
-RUN useradd --create-home --uid 1001 -u 10000 appuser
+RUN useradd --create-home --uid 1001 -u 100001 appuser
 
 WORKDIR /APP
 
