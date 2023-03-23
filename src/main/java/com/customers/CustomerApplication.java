@@ -1,9 +1,7 @@
 package com.customers;
 
-import com.customers.repository.CustomerRepository;
 import com.customers.service.CustomerService;
 import com.customers.service.CustomerServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -21,11 +19,8 @@ public class CustomerApplication{
 		return value -> value.toUpperCase();
 	}
 
-	@Autowired
-	CustomerRepository customerRepository;
-
 	@Bean
-	CustomerService customerService(CustomerRepository customerRepository){
-		return new CustomerServiceImpl(customerRepository);
+	CustomerService customerService(){
+		return new CustomerServiceImpl();
 	}
 }

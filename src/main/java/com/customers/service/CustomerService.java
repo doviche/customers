@@ -9,5 +9,4 @@ public interface CustomerService {
 
     List<Customer> findAll();
     Optional<Customer> findByEmail(String email);
-    Optional<Customer> save(Customer customer);
 }

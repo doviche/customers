@@ -43,14 +43,4 @@ public class CustomerController {
 
         return ResponseEntity.of(Optional.empty());
     }
-
-    @PostMapping("/")
-    public ResponseEntity<Customer> save(@RequestBody Customer customer){
-        Optional<Customer> optionalCustomer = customerService.save(customer);
-        if(optionalCustomer.isPresent()){
-            return ResponseEntity.of(optionalCustomer);
-        }
-
-        return ResponseEntity.of(Optional.empty());
-    }
 }
