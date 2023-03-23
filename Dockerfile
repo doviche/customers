@@ -9,17 +9,18 @@ RUN chgrp -R 0 /usr/${APP_NAME}/ && \
     chmod -R g=rwx /usr/${APP_NAME}/
 
 
-RUN useradd --create-home --uid 10001 appuser
+RUN useradd --create-home --uid 1001 -u 10000 appuser
+
+WORKDIR /APP
+
+COPY /.app
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+EXPOSE 8080
+
+ENV NAME World
 
 USER appuser
 
-EXPOSE 8081
-
-WORKDIR /usr/${APP_NAME}/
-
-
-
-
-
-
-CMD java -XX:+UnlockExperimentalVMOptions -XshowSettings:vm -Xmx2048m -Xms2048m -jar ${APP_NAME}.jar --spring.profiles.active=${APP_PROFILE}
+CMD["python", "app.py]
