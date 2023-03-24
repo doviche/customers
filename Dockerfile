@@ -2,15 +2,17 @@
 # 1. Building the App with Maven
 FROM maven:3.8.7-eclipse-temurin-19-alpine
 
-# 2. Just using the build artifact and then removing the build-container
 FROM openjdk:17-oracle
 
-WORKDIR /
+# Refer to Maven build -> finalName
+ARG JAR_FILE=target/customers-1.1.jar
 
-# Create a new user with UID 10014
-RUN addgroup -g 10014 choreo && \
-    adduser  --disabled-password  --no-create-home --uid 10014 --ingroup choreo choreouser
+# cd /opt/app
+WORKDIR /opt/app
 
-USER 10014
+# cp target/customers-1.1.jar /opt/app/app.jar
+COPY ${JAR_FILE} app.jar
 
-RUN ls -la
+# java -jar /opt/app/app.jar
+ENTRYPOINT ["java","-jar","app.jar"]
+
