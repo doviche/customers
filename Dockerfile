@@ -12,12 +12,6 @@ RUN ls -l
 # Run Maven build
 RUN mvn clean install
 
-# https://security.alpinelinux.org/vuln/CVE-2021-46848
-RUN apk add --upgrade libtasn1-progs
-
-# https://security.alpinelinux.org/vuln/CVE-2022-37434
-RUN apk update && apk upgrade zlib
-
 
 # Create a new user with UID 10014
 RUN addgroup -g 10014 choreo && \
