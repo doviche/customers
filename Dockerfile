@@ -15,7 +15,7 @@ RUN addgroup -g 10014 choreo && \
 USER 10014
 
 # Add Spring Boot app.jar to Container
-#COPY --from=0 "target/customers-1.1.jar" app.jar
+COPY --from=0 "target/customers-1.1.jar" app.jar
 
 # Fire up our Spring Boot app by default
-#CMD [ "sh", "-c", "java $JAVA_OPTS /app.jar" ]
+CMD [ "sh", "-c", "java $JAVA_OPTS /app.jar" ]
