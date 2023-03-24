@@ -5,7 +5,11 @@ ADD . /customers
 WORKDIR /customers
 
 
-FROM maven:3.6.0-jdk-11-slim AS build
+FROM maven:3.8.7-eclipse-temurin-19-alpine
+
+
+# Run Maven build
+RUN mvn clean spring-boot:run
 
 # Create a new user with UID 10014
 RUN addgroup -g 10014 choreo && \
