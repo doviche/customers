@@ -1,10 +1,27 @@
 # Docker multi-stage build
 
 # 1. Building the App with Maven
-FROM maven:3.8.3-openjdk-17
+FROM maven:3.8.7-eclipse-temurin-19-alpine
 
 ADD . /customers
-WORKDIR /customers
+RUN cd /customers
+
+# Just echo so we can see, if everything is there :)
+RUN ls -la
+
+# Run Maven build
+RUN mvn clean install
+
+
+# 2. Just using the build artifact and then removing the build-container
+FROM openjdk:17-oracle
+
+# https://security.alpinelinux.org/vuln/CVE-2021-46848
+RUN apk add --upgrade libtasn1-progs
+
+# https://security.alpinelinux.org/vuln/CVE-2022-37434
+RUN apk update && apk upgrade zlib
+
 
 # Create a new user with UID 10014
 RUN addgroup -g 10014 choreo && \
@@ -12,11 +29,8 @@ RUN addgroup -g 10014 choreo && \
 
 USER 10014
 
-EXPOSE 8080
-
-
 # Add Spring Boot app.jar to Container
-COPY --from=0  customers-1.1.jar app.jar
+COPY --from=0 "/customers/target/customers-1.1.jar" app.jar
 
 # Fire up our Spring Boot app by default
-CMD [ "sh", "-c", "java /app.jar" ]
+CMD [ "sh", "-c", "java -jar customers-1.1.jar" ]
