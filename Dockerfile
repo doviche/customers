@@ -6,7 +6,7 @@ ENV APP_NAME=customers-1.1
 
 USER 10014
 
-COPY ${APP_NAME}.jar /app
+ADD ${APP_NAME}.jar /app
 
 EXPOSE 8080
 
