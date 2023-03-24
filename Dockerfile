@@ -7,9 +7,6 @@ FROM openjdk:17-oracle
 
 WORKDIR /
 
-# Run Maven build
-RUN mvn clean install
-
 # Create a new user with UID 10014
 RUN addgroup -g 10014 choreo && \
     adduser  --disabled-password  --no-create-home --uid 10014 --ingroup choreo choreouser
@@ -20,3 +17,4 @@ ADD customers-1.1.jar customer.jar
 
 # Fire up our Spring Boot app by default
 CMD java -jar customers.jar
+
