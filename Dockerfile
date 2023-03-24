@@ -10,7 +10,7 @@ ADD . /customers
 RUN cd /customers
 
 # Just echo so we can see, if everything is there :)
-RUN ls -la
+RUN ls -la /home
 
 # Run Maven build
 RUN mvn clean install
