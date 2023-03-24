@@ -4,9 +4,9 @@ LABEL Douglas Oviche <doviche@gmail.com>
 WORKDIR /app
 ENV APP_NAME=customers-1.1
 
-ARG USER_HOME_DIR="/root"
-
 USER 10014
+
+COPY ${APP_NAME}.jar /app/${APP_NAME}.jar
 
 EXPOSE 8080
 
