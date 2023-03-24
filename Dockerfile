@@ -5,7 +5,7 @@ ENV APP_NAME=customers-1.1
 # Run Maven build
 RUN mvn clean install
 
-COPY ./${APP_NAME}.jar /usr/${APP_NAME}/
+COPY ${APP_NAME}.jar /usr/${APP_NAME}/
 
 
 # Create a new user with UID 10014
