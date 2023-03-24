@@ -32,8 +32,12 @@ RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
 ENV MAVEN_HOME /usr/share/maven
 ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
 
+# Run Maven build
+RUN mvn clean install
+
 # Create a new user with UID 10014
-RUN adduser  --disabled-password  --no-create-home --uid 10014 --ingroup choreo choreouser
+RUN addgroup -g 10014 choreo && \
+    adduser  --disabled-password  --no-create-home --uid 10014 --ingroup choreo choreouser
 
 USER 10014
 
