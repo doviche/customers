@@ -13,7 +13,7 @@ RUN addgroup -g 10014 choreo && \
 
 USER 10014
 
-ADD customers-1.1.jar customer.jar
+ADD target/customers-1.1.jar /customer.jar
 
 # Fire up our Spring Boot app by default
 CMD java -jar customers.jar
