@@ -10,6 +10,11 @@ ENV APP_NAME=customers-1.1
 
 ARG USER_HOME_DIR="/root"
 
+WORKDIR /app
+
+# copy pom.xml from context into image
+COPY pom.xml /app/pom.xml
+
 # 3- Define the SHA key to validate the maven download
 ARG SHA=b4880fb7a3d81edd190a029440cdf17f308621af68475a4fe976296e71ff4a4b546dd6d8a58aaafba334d309cc11e638c52808a4b0e818fc0fd544226d952544
 
