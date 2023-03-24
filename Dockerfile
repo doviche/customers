@@ -13,8 +13,4 @@ RUN addgroup -g 10014 choreo && \
 
 USER 10014
 
-ADD /target/customers-1.1.jar /customer.jar
-
-ENTRYPOINT ["java", "-jar", "/app/payment-1.0.1-SNAPSHOT.jar"]
-
-EXPOSE 8080
+RUN ls -la
