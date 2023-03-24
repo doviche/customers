@@ -10,12 +10,6 @@ RUN ls -l
 # Run Maven build
 RUN mvn clean install
 
-# https://security.alpinelinux.org/vuln/CVE-2021-46848
-RUN apt-get update && apt-get upgrade libtasn1-progs
-
-# https://security.alpinelinux.org/vuln/CVE-2022-37434
-RUN apt-get update && apt-get upgrade zlib
-
 # Create a new user with UID 10014
 RUN addgroup -g 10014 choreo && \
     adduser  --disabled-password  --no-create-home --uid 10014 --ingroup choreo choreouser
