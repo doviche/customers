@@ -8,9 +8,6 @@ WORKDIR /customers
 FROM maven:3.8.7-eclipse-temurin-19-alpine
 
 
-# Run Maven build
-RUN mvn clean spring-boot:run
-
 # Create a new user with UID 10014
 RUN addgroup -g 10014 choreo && \
     adduser  --disabled-password  --no-create-home --uid 10014 --ingroup choreo choreouser
